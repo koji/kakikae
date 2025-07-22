@@ -1,4 +1,4 @@
-# Markdown Converter
+# kakikae (書き換え) Markdown Converter
 
 ![screenshot](./app.png)
 
