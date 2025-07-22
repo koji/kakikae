@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Converter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Markdown Converter</h1>
+      </header>
+
+      <main>
+        <!-- Drag and Drop Area -->
+        <div id="dropArea" class="drop-area">
+          <div class="drop-content">
+            <div class="drop-icon">📁</div>
+            <div class="drop-text">
+              <strong>DRAG AND DROP FILES HERE</strong>
+              <br /><br />
+              OR
+              <br /><br />
+              <strong>CLICK 'SELECT FILES' BELOW</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-row">
+          <button id="selectFilesBtn" class="btn btn-primary">
+            Select Files
+          </button>
+          <button id="clearBtn" class="btn btn-secondary">Clear</button>
+        </div>
+
+        <button id="selectOutputBtn" class="btn btn-purple">
+          Select Output Directory
+        </button>
+
+        <button id="convertBtn" class="btn btn-success">Convert</button>
+
+        <!-- Progress Bar -->
+        <div
+          id="progressContainer"
+          class="progress-container"
+          style="display: none"
+        >
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="status">Ready</div>
+      </main>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
