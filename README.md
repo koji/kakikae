@@ -1,5 +1,7 @@
 # Markdown Converter
 
+![screenshot](./app.png)
+
 A modern, cross-platform desktop application for converting various file formats to Markdown. Built with Electron and Python, featuring a clean interface with native drag & drop support.
 
 ![Markdown Converter](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
