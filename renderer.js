@@ -1,12 +1,10 @@
 // Application state
 let selectedFiles = [];
-let outputDirectory = null;
 
 // DOM elements
 const dropArea = document.getElementById("dropArea");
 const selectFilesBtn = document.getElementById("selectFilesBtn");
 const clearBtn = document.getElementById("clearBtn");
-const selectOutputBtn = document.getElementById("selectOutputBtn");
 const convertBtn = document.getElementById("convertBtn");
 const progressContainer = document.getElementById("progressContainer");
 const progressFill = document.getElementById("progressFill");
@@ -22,7 +20,6 @@ function setupEventListeners() {
   // File selection
   selectFilesBtn.addEventListener("click", selectFiles);
   clearBtn.addEventListener("click", clearFiles);
-  selectOutputBtn.addEventListener("click", selectOutputDirectory);
   convertBtn.addEventListener("click", convertFiles);
 
   // Drag and drop
@@ -60,25 +57,9 @@ function clearFiles() {
   updateUI();
 }
 
-async function selectOutputDirectory() {
-  try {
-    const directory = await window.electronAPI.selectOutputDirectory();
-    if (directory) {
-      outputDirectory = directory;
-      updateUI();
-    }
-  } catch (error) {
-    console.error("Error selecting output directory:", error);
-    updateStatus("Error selecting output directory");
-  }
-}
+// Output directory selection removed - files saved in same location as originals
 
 async function convertFiles() {
-  if (!outputDirectory) {
-    alert("Please select an output directory.");
-    return;
-  }
-
   if (selectedFiles.length === 0) {
     alert("Please select files to convert.");
     return;
@@ -94,10 +75,7 @@ async function convertFiles() {
 
     updateStatus("Starting conversion...");
 
-    const results = await window.electronAPI.convertFiles(
-      selectedFiles,
-      outputDirectory
-    );
+    const results = await window.electronAPI.convertFiles(selectedFiles);
 
     // Process results
     const successful = results.filter((r) => r.success).length;
@@ -183,19 +161,8 @@ function updateUI() {
     updateStatus("Ready");
   }
 
-  // Update output directory button text
-  if (outputDirectory) {
-    const shortPath =
-      outputDirectory.length > 30
-        ? "..." + outputDirectory.slice(-27)
-        : outputDirectory;
-    selectOutputBtn.textContent = `Output: ${shortPath}`;
-  } else {
-    selectOutputBtn.textContent = "Select Output Directory";
-  }
-
   // Enable/disable convert button
-  convertBtn.disabled = selectedFiles.length === 0 || !outputDirectory;
+  convertBtn.disabled = selectedFiles.length === 0;
 }
 
 function updateStatus(message) {
