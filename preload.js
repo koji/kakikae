@@ -2,9 +2,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
   selectFiles: () => ipcRenderer.invoke("select-files"),
-  selectOutputDirectory: () => ipcRenderer.invoke("select-output-directory"),
-  convertFiles: (files, outputDir) =>
-    ipcRenderer.invoke("convert-files", files, outputDir),
+  convertFiles: (files) => ipcRenderer.invoke("convert-files", files),
   validateFiles: (filePaths) => ipcRenderer.invoke("validate-files", filePaths),
 
   // Listen for conversion progress

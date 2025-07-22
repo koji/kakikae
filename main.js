@@ -81,15 +81,9 @@ ipcMain.handle("select-files", async () => {
   return result.canceled ? [] : result.filePaths;
 });
 
-ipcMain.handle("select-output-directory", async () => {
-  const result = await dialog.showOpenDialog(mainWindow, {
-    properties: ["openDirectory"],
-  });
+// Removed select-output-directory handler - no longer needed
 
-  return result.canceled ? null : result.filePaths[0];
-});
-
-ipcMain.handle("convert-files", async (event, files, outputDir) => {
+ipcMain.handle("convert-files", async (event, files) => {
   return new Promise((resolve, reject) => {
     const results = [];
     let completed = 0;
@@ -100,6 +94,9 @@ ipcMain.handle("convert-files", async (event, files, outputDir) => {
     }
 
     files.forEach((filePath, index) => {
+      // Get the directory of the original file
+      const outputDir = path.dirname(filePath);
+
       // Call Python converter script
       const python = spawn("python3", ["converter.py", filePath, outputDir]);
 
